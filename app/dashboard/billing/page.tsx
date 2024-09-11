@@ -4,15 +4,15 @@ import React, { useContext, useState } from 'react'
 import axio from 'axios'
 import { Loader2Icon } from 'lucide-react';
 import { db } from '@/utils/db';
-import { UserSubscription } from '@/utils/schema';
+// import { UserSubscription } from '@/utils/schema';
 import { useUser } from '@clerk/nextjs';
 import moment from 'moment';
-import { UserSubscriptionContext } from '@/app/(context)/UserSubscriptionContext';
+// import { UserSubscriptionContext } from '@/app/(context)/UserSubscriptionContext';
 function billing() {
 
   const [loading,setLoading]=useState(false);
   const {user}=useUser();
-    const {userSubscription,setUserSubscription}=useContext(UserSubscriptionContext);
+    // const {userSubscription,setUserSubscription}=useContext(UserSubscriptionContext);
     
   const CreateSubscription=()=>{
     setLoading(true)
@@ -54,11 +54,11 @@ function billing() {
       description:'Monthly Subscription',
       handler:async(resp:any)=>{
         console.log(resp);
-        if(resp)
-          {
-            SaveSubcription(resp?.razorpay_payment_id)
-          }
-        setLoading(false);
+        // if(resp)
+        //   {
+        //     SaveSubcription(resp?.razorpay_payment_id)
+        //   }
+        // setLoading(false);
       }
     }
  
@@ -74,21 +74,21 @@ function billing() {
     }
   }
 
-  const SaveSubcription=async(paymentId:string)=>{
-    const result=await db.insert(UserSubscription)
-    .values({
-      email:user?.primaryEmailAddress?.emailAddress,
-      userName:user?.fullName,
-      active:true,
-      paymentId:paymentId,
-      joinDate:moment().format('DD/MM/yyyy')
-    });
-    console.log(result);
-    if(result)
-      {
-        window.location.reload();
-      }
-  }
+  // const SaveSubcription=async(paymentId:string)=>{
+  //   const result=await db.insert(UserSubscription)
+  //   .values({
+  //     email:user?.primaryEmailAddress?.emailAddress,
+  //     userName:user?.fullName,
+  //     active:true,
+  //     paymentId:paymentId,
+  //     joinDate:moment().format('DD/MM/yyyy')
+  //   });
+  //   console.log(result);
+  //   if(result)
+  //     {
+  //       window.location.reload();
+  //     }
+  // }
 
   return (
     <div>
@@ -267,7 +267,8 @@ function billing() {
         variant='outline'
       >
         {loading&&<Loader2Icon className='animate-spin'/>}
-        {userSubscription?'Active Plan':  'Get Started'}
+        {/* {userSubscription?'Active Plan':  'Get Started'} */}
+        Get Started
       </Button>
     </div>
   </div>
